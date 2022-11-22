@@ -1,5 +1,6 @@
 class Sprite{
-    constructor(height, width, image, scene){
+
+    constructor(width, height, image, scene){
         
         this.height = height
         this.width = width
@@ -14,7 +15,7 @@ class Sprite{
         this.image.src = image
         this.imageAngle = 0
         this.scene = scene
-        this.boundAction = DELETE
+        this.boundAction = null
         this.visible = true
         this.delete = false
 
@@ -94,6 +95,9 @@ class Sprite{
 
     //function for checking bounds and handling accordingly
     checkBounds(){
+        //constants for bound actions
+        let DELETE=0, WRAP=1,BOUNCE=2,STOP=3,KEEP=4;
+
         //if delete, flag for deletion
         if (this.boundAction == DELETE){
             if(this.xPos > this.scene.width || this.xPos < 0 || this.yPos > this.scene.height || this.yPos < 0){
