@@ -100,6 +100,7 @@ class Scene{
         return this.sprites
     }
 
+
 }
  //function needs to be defined by user
 function localUpdate(){

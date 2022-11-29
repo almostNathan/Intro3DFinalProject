@@ -12,18 +12,21 @@ keysDown = []
 
 let canvasWidth = 800
 let canvasHeight = canvasWidth *.75
-let fps = 30
+let fr = 30
 let rows = 8
 let cols = 8
-board = new Board(canvasWidth,canvasHeight,fps,{cols:cols, rows:rows})
+pieceWidth = 60
+pieceHeight = 60
+board = new Board(canvasWidth,canvasHeight, cols, rows, fr)
 
 board.start()
+board.makeSpaces()
 board.drawBoard()
 board.drawInterface()
 
-whitePawn = new Piece(50,50,"images/whitePawn.png", board)
-whitePawn.setPos({x:100, y:100})
-board.addSprite(whitePawn)
+blackRook = new Piece(pieceWidth,pieceHeight,"assets/blackRook.png", board)
+blackRook.setPos(board.spaces[14].center)
+board.addSprite(blackRook)
 
 
 function updateScene(){
