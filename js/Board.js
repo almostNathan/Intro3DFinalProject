@@ -20,6 +20,7 @@ class Board extends Scene{
 
     //draw squares on board on left side of screen, leaving room for pieces interface
     drawBoard(){
+
         let counter = 0
         //for (let i = 0; i<this.spaces.length; i++){
         for (let space of this.spaces){
@@ -83,6 +84,10 @@ class Board extends Scene{
         this.context.textBaseline = "middle" //center vertically
         this.context.fillText("Next Round",nextRoundButton.xCenter,nextRoundButton.yCenter)
         return nextRoundButton
+    }
+
+    addPiece(piece){
+        this.pieces.push(piece)
     }
     
 }

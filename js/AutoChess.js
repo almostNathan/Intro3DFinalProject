@@ -26,12 +26,30 @@ board.drawInterface()
 
 blackRook = new Piece(pieceWidth,pieceHeight,"assets/blackRook.png", board)
 blackRook.setPos(board.spaces[14].center)
-board.addSprite(blackRook)
+board.addPiece(blackRook)
+
+
+//create listeners to detect clicking pieces
+board.canvas.addEventListener("mousedown", function (e){
+    console.log(board.pieces)
+    for (let i=0; i<board.pieces.length;i++){
+        if (board.pieces[i].checkForClick(e.offsetX, e.offsetY)){
+            console.log("clicked piece")
+        }
+    }
+})
+
+board.canvas.addEventListener("onmousemove", function(e){
+    board.mouseX = e.offsetX
+    board.mouseY = e.offsetY
+})
+
 
 
 function updateScene(){
-    for (let i = 0; i<board.sprites.length; i++){
-        board.sprites[i].update()
-        board.sprites[i].draw()
+    for (let i = 0; i<board.pieces.length; i++){
+        board.pieces[i].update()
+        board.pieces[i].draw()
     }
+    
 }

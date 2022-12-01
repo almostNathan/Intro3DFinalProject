@@ -79,10 +79,10 @@ class Sprite{
         thisTop = this.yPos - this.width/2
         thisBottom = this.yPos + this.width/2
 
-        otherLeft = this.xPos - this.width/2
-        thisRight = this.xPos + this.width/2
-        thisTop = this.yPos - this.width/2
-        thisBottom = this.yPos + this.width/2
+        otherLeft = otherObject.xPos - this.width/2
+        thisRight = otherObject.xPos + this.width/2
+        thisTop = otherObject.yPos - this.width/2
+        thisBottom = otherObject.yPos + this.width/2
 
         //if ANY of the borders are outside the other objects opposite border, the two CANNOT be colliding
         if (thisLeft>otherRight || thisRight<otherLeft || thisTop<otherBottom || thisBottom>otherTop){
