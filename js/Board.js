@@ -49,6 +49,9 @@ class Board extends Scene{
 
     }
 
+    getPieces(){
+        return this.pieces
+    }
 
     drawInterface(){
         var gradient = this.context.createLinearGradient(0,0,0,this.height)

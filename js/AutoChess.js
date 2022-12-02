@@ -19,37 +19,63 @@ pieceWidth = 60
 pieceHeight = 60
 board = new Board(canvasWidth,canvasHeight, cols, rows, fr)
 
+currentPiece = null
+
 board.start()
 board.makeSpaces()
 board.drawBoard()
 board.drawInterface()
 
 blackRook = new Piece(pieceWidth,pieceHeight,"assets/blackRook.png", board)
+blackQueen = new Piece(pieceWidth,pieceHeight,"assets/blackQueen.png", board)
 blackRook.setPos(board.spaces[14].center)
+blackRook.setStartPos(board.spaces[14].center)
 board.addPiece(blackRook)
+blackQueen.setPos(board.spaces[25].center)
+blackQueen.setStartPos(board.spaces[25].center)
+board.addPiece(blackQueen)
 
 
 //create listeners to detect clicking pieces
-board.canvas.addEventListener("mousedown", function (e){
-    console.log(board.pieces)
-    for (let i=0; i<board.pieces.length;i++){
-        if (board.pieces[i].checkForClick(e.offsetX, e.offsetY)){
-            console.log("clicked piece")
+board.canvas.addEventListener("click", function (e){
+    //for each piece on the board
+    currentlyHoldingPiece = checkForClickedPieces()
+    for (let i = 0; i < board.getPieces().length; i++){
+        piece = board.getPieces()[i]
+        //if the mouse clicked the piece AND no piece is currently clicked.
+        if (piece.checkForClick(e.offsetX, e.offsetY, currentlyHoldingPiece)){
+            //console.log("clicked piece")
+            currentPiece = piece
         }
     }
 })
 
-board.canvas.addEventListener("onmousemove", function(e){
+
+board.canvas.addEventListener("mousemove", function(e){
     board.mouseX = e.offsetX
     board.mouseY = e.offsetY
 })
 
+function checkForClickedPieces(){
+    for (let i = 0; i < board.getPieces().length; i++){
+        if (piece.isClicked){
+            return true
+        }else{
+            return false
+        }
+    }
+   
+    
 
+}
 
 function updateScene(){
-    for (let i = 0; i<board.pieces.length; i++){
-        board.pieces[i].update()
-        board.pieces[i].draw()
+    board.drawBoard()
+    board.drawInterface()
+    for (let i = 0; i < board.getPieces().length; i++){
+        piece = board.getPieces()[i]
+        piece.update()
+        piece.draw()
     }
     
 }

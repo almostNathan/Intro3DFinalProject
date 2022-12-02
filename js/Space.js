@@ -22,7 +22,7 @@ class Space{
         this.color = color
         this.scene = scene
         this.context = scene.context
-        this.currentPicece = null
+        this.piece = null
     }
 
 
