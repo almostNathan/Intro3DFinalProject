@@ -145,6 +145,8 @@ class Sprite{
         return distance
     }
 
+    
+
     //find the angle between two sprites
     angleTo(otherSprite){
         xDif = this.xPos - otherSprite.xPos

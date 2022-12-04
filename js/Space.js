@@ -22,7 +22,7 @@ class Space{
         this.color = color
         this.scene = scene
         this.context = scene.context
-        this.piece = null
+        this.currentPiece = null
     }
 
 
@@ -34,6 +34,27 @@ class Space{
         this.context.fillRect(0,0, this.width, this.height)
 
         this.context.restore()
+    }
+
+    distanceTo(x, y){
+        let xDiff = this.center.x - x
+        let yDiff = this.center.y - y
+
+        let distance = Math.sqrt(xDiff*xDiff + yDiff*yDiff)
+
+        return distance
+    }
+
+    hasPiece(){
+        if (this.currentPiece = null){
+            return false
+        }else{
+            return true
+        }
+    }
+
+    getCurrentPiece(){
+        return this.currentPiece
     }
 
 }

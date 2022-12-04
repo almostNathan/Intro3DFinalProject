@@ -18,17 +18,15 @@ class Board extends Scene{
 
 
 
+
     //draw squares on board on left side of screen, leaving room for pieces interface
     drawBoard(){
-
         let counter = 0
         //for (let i = 0; i<this.spaces.length; i++){
         for (let space of this.spaces){
             space.draw(counter)
             counter++
         }
-
-
     }
 
     makeSpaces(){
@@ -91,6 +89,17 @@ class Board extends Scene{
 
     addPiece(piece){
         this.pieces.push(piece)
+    }
+
+
+    pieceCurrentlySelected(){
+        for (let piece of this.pieces){
+            if (piece.isClicked){
+                return piece
+            }else{
+                return null
+            }
+        }
     }
     
 }

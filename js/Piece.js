@@ -6,6 +6,8 @@ class Piece extends Sprite{
         this.value = 0
         this.inSpace = false
         this.isClicked = false
+        this.xOrigin = 20
+        this.yOrigin = 20
     }
 
     update(){
@@ -28,6 +30,9 @@ class Piece extends Sprite{
 
             return false
         }else if (!otherPieceClicked && !this.isClicked){
+            this.xOrigin = this.xPos
+            this.yOrigin = this.yPos
+
             this.isClicked = true
         }else{
             this.isClicked = false
@@ -37,14 +42,10 @@ class Piece extends Sprite{
 
 
     returnToStart(){
-        this.xPos = this.startX
-        this.yPos = this.startY
+        this.xPos = this.xOrigin
+        this.yPos = this.yOrigin
     }
 
-    setStartPos(startPos){
-        this.xStart = startPos.x
-        this.yStart = startPos.y
-    }
 
 
 

@@ -29,21 +29,35 @@ board.drawInterface()
 blackRook = new Piece(pieceWidth,pieceHeight,"assets/blackRook.png", board)
 blackQueen = new Piece(pieceWidth,pieceHeight,"assets/blackQueen.png", board)
 blackRook.setPos(board.spaces[14].center)
-blackRook.setStartPos(board.spaces[14].center)
 board.addPiece(blackRook)
 blackQueen.setPos(board.spaces[25].center)
-blackQueen.setStartPos(board.spaces[25].center)
 board.addPiece(blackQueen)
 
 
 //create listeners to detect clicking pieces
 board.canvas.addEventListener("click", function (e){
     //for each piece on the board
-    currentlyHoldingPiece = checkForClickedPieces()
+    let closestSpaceDist = 1000001
+    let closestSpace = null
+    //find the closest space to mouse to drop if currently holding piece
+    if (board.pieceCurrentlySelected()){
+        for(let space of board.spaces){
+            if(space.distanceTo() < closestSpaceDist){
+                closestSpaceDist = space.distanceTo()
+                closestSpace = space
+            }
+        }
+        //check if space is close enough to be dropped (not on interface)
+        if (closestSpaceDist < closestSpace.height/2){
+
+        }
+    }
+
+
     for (let i = 0; i < board.getPieces().length; i++){
         piece = board.getPieces()[i]
         //if the mouse clicked the piece AND no piece is currently clicked.
-        if (piece.checkForClick(e.offsetX, e.offsetY, currentlyHoldingPiece)){
+        if (piece.checkForClick(e.offsetX, e.offsetY,)){
             //console.log("clicked piece")
             currentPiece = piece
         }
@@ -56,18 +70,9 @@ board.canvas.addEventListener("mousemove", function(e){
     board.mouseY = e.offsetY
 })
 
-function checkForClickedPieces(){
-    for (let i = 0; i < board.getPieces().length; i++){
-        if (piece.isClicked){
-            return true
-        }else{
-            return false
-        }
-    }
    
     
 
-}
 
 function updateScene(){
     board.drawBoard()
