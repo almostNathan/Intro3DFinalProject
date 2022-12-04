@@ -139,9 +139,9 @@ class Sprite{
 
     //measure and return the distance between two sprites
     distanceTo(otherSprite){
-        xDif = this.xPos - otherSprite.xPos
-        yDif = this.yPos - otherSprite.yPos
-        distance = Math.sqrt(Math.pow(xDif, 2) + Math.pow(yDif, 2))
+        let xDif = this.xPos - otherSprite.xPos
+        let yDif = this.yPos - otherSprite.yPos
+        let distance = Math.sqrt(Math.pow(xDif, 2) + Math.pow(yDif, 2))
         return distance
     }
 
@@ -178,6 +178,7 @@ class Sprite{
     setPos(position){
         this.xPos = position.x
         this.yPos = position.y
+        this.center = {x:this.xPos, y:this.yPos}
     }
     getXPos(){
         return this.xPos

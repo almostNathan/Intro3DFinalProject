@@ -24,7 +24,7 @@ class Board extends Scene{
         let counter = 0
         //for (let i = 0; i<this.spaces.length; i++){
         for (let space of this.spaces){
-            space.draw(counter)
+            space.draw()
             counter++
         }
     }
@@ -36,9 +36,13 @@ class Board extends Scene{
             //for each cell in a row
             for (let j=0; j<this.rows; j++){
                 if ((i+j)%2 == 1){
-                    spacesArray.push(new Space(this.spaceWidth, this.spaceHeight,i*this.spaceWidth,j*this.spaceHeight,"white", this))
+                    let newSpace = new Space(this.spaceWidth, this.spaceHeight, "assets/whiteSpace.png", this)
+                    newSpace.setPos({x:i*this.spaceWidth+this.spaceWidth/2, y:j*this.spaceHeight+this.spaceHeight/2})
+                    spacesArray.push(newSpace)
                 }else{
-                    spacesArray.push(new Space(this.spaceWidth, this.spaceHeight,i*this.spaceWidth,j*this.spaceHeight,"gray", this))
+                    let newSpace = new Space(this.spaceWidth, this.spaceHeight, "assets/greySpace.png", this)
+                    newSpace.setPos({x:i*this.spaceWidth+this.spaceWidth/2, y:j*this.spaceHeight+this.spaceHeight/2})
+                    spacesArray.push(newSpace)
                 }
             }
         }
@@ -96,10 +100,14 @@ class Board extends Scene{
         for (let piece of this.pieces){
             if (piece.isClicked){
                 return piece
-            }else{
-                return null
             }
         }
+        return null
     }
     
+
+    //getters/setters
+    get getPieces(){
+        return this.pieces
+    }
 }

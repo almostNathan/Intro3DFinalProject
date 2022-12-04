@@ -26,38 +26,56 @@ board.makeSpaces()
 board.drawBoard()
 board.drawInterface()
 
+
+//TEST AREA*******************
 blackRook = new Piece(pieceWidth,pieceHeight,"assets/blackRook.png", board)
 blackQueen = new Piece(pieceWidth,pieceHeight,"assets/blackQueen.png", board)
+blackKnight = new Piece(pieceWidth,pieceHeight,"assets/blackKnight.png", board)
 blackRook.setPos(board.spaces[14].center)
 board.addPiece(blackRook)
 blackQueen.setPos(board.spaces[25].center)
 board.addPiece(blackQueen)
-
+blackKnight.setPos(board.spaces[40].center)
+board.addPiece(blackKnight)
+//******************* */
 
 //create listeners to detect clicking pieces
 board.canvas.addEventListener("click", function (e){
+    console.log("click")
     //for each piece on the board
-    let closestSpaceDist = 1000001
+    let closestSpaceDist = 100000
     let closestSpace = null
     //find the closest space to mouse to drop if currently holding piece
+    //if there is a currently selecte piece
     if (board.pieceCurrentlySelected()){
+        //variable for current piece
+        let piece = board.pieceCurrentlySelected()
+        console.log("in if piece currently clicked ")
+        //for each space if it is closer, set as closest space 
         for(let space of board.spaces){
-            if(space.distanceTo() < closestSpaceDist){
-                closestSpaceDist = space.distanceTo()
+            if(space.distanceTo(piece) < closestSpaceDist){
+                closestSpaceDist = space.distanceTo(piece)
                 closestSpace = space
-            }
-        }
-        //check if space is close enough to be dropped (not on interface)
-        if (closestSpaceDist < closestSpace.height/2){
+            }//end if (space closer than closeset)
 
-        }
-    }
+        //TODO check if space is close enough to be dropped (not on interface)
+
+        }//end for each space
+
+        console.log(board.spaces.indexOf(closestSpace) +" "+closestSpace.xPos+ " " + closestSpace.yPos)
+        //set current piece location to closest space
+        piece.xPos = closestSpace.xPos
+        piece.yPos = closestSpace.yPos
 
 
-    for (let i = 0; i < board.getPieces().length; i++){
-        piece = board.getPieces()[i]
+    }//end if (currently have piece)
+    
+
+
+    for (let i = 0; i < board.getPieces.length; i++){
+        piece = board.getPieces[i]
         //if the mouse clicked the piece AND no piece is currently clicked.
-        if (piece.checkForClick(e.offsetX, e.offsetY,)){
+        if (piece.checkForClick(e.offsetX, e.offsetY)){
             //console.log("clicked piece")
             currentPiece = piece
         }
@@ -77,8 +95,8 @@ board.canvas.addEventListener("mousemove", function(e){
 function updateScene(){
     board.drawBoard()
     board.drawInterface()
-    for (let i = 0; i < board.getPieces().length; i++){
-        piece = board.getPieces()[i]
+    for (let i = 0; i < board.getPieces.length; i++){
+        piece = board.getPieces[i]
         piece.update()
         piece.draw()
     }
