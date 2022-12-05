@@ -21,25 +21,7 @@ class Space extends Sprite{
     }
 
 
-    //draw(){
-        //this.context.save()
-        //this.context.translate(this.xPos, this.yPos)
-
-        //this.context.fillStyle = this.color
-        //this.context.fillRect(0,0, this.width, this.height)
-
-        //this.context.restore()
-    //}
-
-    //distanceTo(x, y){
-        //let xDiff = this.center.x - x
-        //let yDiff = this.center.y - y
-
-        //let distance = Math.sqrt(xDiff*xDiff + yDiff*yDiff)
-
-        //return distance
-    //}
-
+   
     hasPiece(){
         if (this.currentPiece = null){
             return false
@@ -48,8 +30,49 @@ class Space extends Sprite{
         }
     }
 
-    getCurrentPiece(){
+    get getCurrentPiece(){
         return this.currentPiece
     }
+    
+    //returns 
+    checkForClick(clickX, clickY, selectedPiece){
+        let left = this.xPos - this.width/2
+        let right = this.xPos + this.width/2
+        let top = this.yPos - this.height/2
+        let bot = this.yPos + this.height/2
 
+        //if mouse is NOT clicked on this space
+        if (clickX > right || clickX < left || clickY < top || clickY > bot){
+            return null
+        }
+        //else if mouse is clicked on this space
+        else {
+            console.log(left/this.width+" "+top/this.height)
+            console.log("currentPiece " + this.currentPiece)
+            console.log("selected Piece "+ selectedPiece)
+            //if a piece is currently selected and no piece on this space. take piece
+            if (selectedPiece != null && this.currentPiece == null){
+                console.log("take piece")
+                selectedPiece.xOrigin = this.xPos
+                selectedPiece.yOrigin = this.yPos
+                this.setCurrentPiece(selectedPiece)
+                selectedPiece.isClicked = true
+            }
+            //if no selected piece, but piece in this space, give piece
+            else if(selectedPiece == null && this.currentPiece != null){
+                console.log("give piece")
+                selectedPiece = this.currentPiece
+                selectedPiece.isClicked = true
+                this.currentPiece = null
+            }
+            return true
+        }
+    }
+
+    
+
+    setCurrentPiece(piece){
+        this.currentPiece = piece
+
+    }
 }

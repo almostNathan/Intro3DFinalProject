@@ -107,7 +107,11 @@ class Board extends Scene{
     
 
     //getters/setters
-    get getPieces(){
+    getPieces(){
         return this.pieces
+    }
+
+    getSpaces(){
+        return this.spaces
     }
 }
