@@ -19,12 +19,14 @@ class Board extends Scene{
         this.rows = rows
         this.spaceWidth = this.boardWidth / cols
         this.spaceHeight = this.boardHeight/ rows
-        this.spaces = [[]]
+        this.spaces = this.makeSpaces() 
+        this.enemySpaces = this.makeSpaces() 
         this.shopPieces = []
         this.playerMoney = 10
         this.prices = [10,15,20,20,30]
         this.priceLabels = []
         this.playerIncome = 10
+        this.playerHealth = 10
 
     }
 
@@ -34,6 +36,7 @@ class Board extends Scene{
     //draw squares on board on left side of screen, leaving room for pieces interface
     drawBoard(){
         this.playerInterface.draw()
+        this.incomeButton.draw()
         this.nextRoundButton.draw()
 
         this.drawScoreboard(this.scoreboard)
@@ -81,11 +84,13 @@ class Board extends Scene{
 
     //builds the shop where the player can select pieces
     makeShop(){
-        this.shopPieces[0] = new Piece(this.boardWidth/10,this.boardHeight/10, "assets/blackPawn.png", this)
-        this.shopPieces[1] = new Piece(this.boardWidth/10,this.boardHeight/10, "assets/blackKnight.png", this)
-        this.shopPieces[2] = new Piece(this.boardWidth/10,this.boardHeight/10, "assets/blackBishop.png", this)
-        this.shopPieces[3] = new Piece(this.boardWidth/10,this.boardHeight/10, "assets/blackRook.png", this)
-        this.shopPieces[4] = new Piece(this.boardWidth/10,this.boardHeight/10, "assets/blackQueen.png", this)
+        let shopItemWidth = this.boardWidth/10
+        let shopItemHeight = this.boardHeight/10
+        this.shopPieces[0] = new Piece(shopItemWidth,shopItemHeight, "assets/blackPawn.png", this)
+        this.shopPieces[1] = new Piece(shopItemWidth,shopItemHeight, "assets/blackKnight.png", this)
+        this.shopPieces[2] = new Piece(shopItemWidth,shopItemHeight, "assets/blackBishop.png", this)
+        this.shopPieces[3] = new Piece(shopItemWidth,shopItemHeight, "assets/blackRook.png", this)
+        this.shopPieces[4] = new Piece(shopItemWidth,shopItemHeight, "assets/blackQueen.png", this)
 
 
         let i = 1
@@ -98,15 +103,16 @@ class Board extends Scene{
             let newLabel = new Sprite(20,20,"assets/"+this.prices[i-1]+".png",this)
             newLabel.setPos({x:piece.xPos ,y:piece.yPos+piece.height/1.5})
             this.priceLabels.push(newLabel)
-
             i++
         }
+
+            this.incomeButton = new Sprite(shopItemWidth,shopItemHeight, "assets/greySpace.png", this)
+            this.incomeButton.setPos({x:this.playerInterface.xPos, y: this.height*6/7})
     
     }
 
 
     movePieces(){
-        console.log("in movePieces()")
         //shift pieces up
         //look thru the spaces 2d array for spaces that have pieces, remove those pieces and add them to the space north
         for (let i = 0; i <this.spaces.length; i++){
@@ -114,7 +120,9 @@ class Board extends Scene{
                 if (this.spaces[i][j].hasPiece()){
                         let currentSpace = this.spaces[i][j]
 
+                    //if the piece made it to the last row
                     if (i <=0){
+                        this.playerHealth += 1
                         currentSpace.removePiece()
                     }else{
                         let newSpace = this.spaces[i-1][j]
@@ -153,7 +161,8 @@ class Board extends Scene{
             spacesArray.push(thisRow)
         }
 
-        this.spaces = spacesArray
+
+        return spacesArray
 
     }
 
@@ -167,12 +176,15 @@ class Board extends Scene{
 
     }
 
+    //draw currentMoney and currentHealth
     drawScoreboard(scoreboard){
         this.context.fillStyle = "black"
         this.context.font = "30px Arial"
         this.context.textAlign = "center"
         this.textBaselin = "middle"
-        this.context.fillText("$"+this.playerMoney, scoreboard.xPos, scoreboard.yPos)
+        this.context.fillText("HP: "+this.playerHealth + " - $"+this.playerMoney, scoreboard.xPos, scoreboard.yPos)
+
+        this.conest.fillText("Income", this.incomeButton.xPos, this.incomeButton.yPos)
     }
 
     getBottomRow(){

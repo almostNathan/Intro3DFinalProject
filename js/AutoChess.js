@@ -16,7 +16,6 @@ let nextRoundButtonImage = "assets/nextRound.png"
 let selectedPiece = null
 
 board.start()
-board.makeSpaces()
 board.makeInterface(backgroundImage, nextRoundButtonImage)//can maybe pass in skins later on.
 
 
