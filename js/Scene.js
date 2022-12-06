@@ -1,11 +1,12 @@
+//Nathan Allen
+//AUTOCHESS
+//Final Project CSCI 43700-25633
 class Scene{
-    keysDown = []
 
-    constructor(width, height, fr){
+    constructor(width, height){
         this.height = height
         this.width = width
         this.position = null
-        this.framerate = fr
         this.currentKey = null
         this.mouseButton = null
         this.context = null
@@ -14,7 +15,6 @@ class Scene{
 
 
     start(){
-
         this.canvas = document.createElement("canvas")
         this.canvas.style.backgroundColor = "grey"
         document.body.appendChild(this.canvas)
@@ -101,9 +101,11 @@ class Scene{
     }
 
 
+
 }
  //function needs to be defined by user
 function localUpdate(){
         updateScene()
     }
 
+let keysDown = []

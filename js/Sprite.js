@@ -1,9 +1,11 @@
+//Nathan Allen
+//AUTOCHESS
+//Final Project CSCI 43700-25633
 class Sprite{
 
     constructor(width, height, image, scene){
-        
-        this.height = height
         this.width = width
+        this.height = height
         this.xPos = 0
         this.yPos = 0
         this.speed = 0
@@ -207,6 +209,19 @@ class Sprite{
         return this.compSpeed.dy
     }
 
+    isClicked(click){
+        let left = this.xPos - this.width/2
+        let right = this.xPos + this.width/2
+        let top = this.yPos - this.height/2
+        let bot = this.yPos + this.height/2
+
+        //if mouse is NOT clicked on this piece
+        if (click.x > right || click.x < left || click.y < top || click.y > bot){
+            return false
+        }else {
+            return true
+        }
+    }
 
 
 
