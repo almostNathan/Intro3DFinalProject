@@ -35,6 +35,12 @@ class Space extends Sprite{
         piece.setPos({x:this.xPos,y:this.yPos})
         this.currentPiece = piece
     }
+
+    removePiece(){
+        let tempPiece = this.currentPiece
+        this.currentPiece = null
+        return tempPiece
+    }
    
     hasPiece(){
         if (this.currentPiece!= null){

@@ -106,16 +106,27 @@ class Board extends Scene{
 
 
     movePieces(){
+        console.log("in movePieces()")
         //shift pieces up
+        //look thru the spaces 2d array for spaces that have pieces, remove those pieces and add them to the space north
+        for (let i = 0; i <this.spaces.length; i++){
+            for (let j = 0 ; j<this.spaces[i].length; j++){
+                if (this.spaces[i][j].hasPiece()){
+                        let currentSpace = this.spaces[i][j]
 
-        for (let row of this.spaces){
-            for (let space of row){
-                space.yPos -= this.spaceHeight
-                if (space.yPos < 0){
-                    space.yPos += this.height
+                    if (i <=0){
+                        currentSpace.removePiece()
+                    }else{
+                        let newSpace = this.spaces[i-1][j]
+                        newSpace.addPiece(currentSpace.removePiece())
+
+                    }
+
                 }
             }
         }
+
+
     }
 
 
