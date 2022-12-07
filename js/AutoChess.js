@@ -75,6 +75,9 @@ board.canvas.addEventListener("click", function(e){
         board.playerMoney += board.playerIncome
 
         //MULTIPLAYER
+
+
+        
         board.movePieces(board.spaces)
     }
     if (board.incomeButton.isClicked(board.mousePos)){

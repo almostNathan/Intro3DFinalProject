@@ -31,6 +31,10 @@ class Space extends Sprite{
         }
     }
 
+    drawPiece(){
+        this.currentPiece.draw()
+    }
+
     addPiece(piece){
         piece.setPos({x:this.xPos,y:this.yPos})
         this.currentPiece = piece

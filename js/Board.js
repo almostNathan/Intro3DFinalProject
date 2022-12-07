@@ -31,7 +31,7 @@ class Board extends Scene{
 
 
 
-
+    //enemySpaces = array of spaces for enemy board in player orientation
     //draw squares on board on left side of screen, leaving room for pieces interface
     drawBoard(){
         this.playerInterface.draw()
