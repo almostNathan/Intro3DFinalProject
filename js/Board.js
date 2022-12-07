@@ -20,7 +20,6 @@ class Board extends Scene{
         this.spaceWidth = this.boardWidth / cols
         this.spaceHeight = this.boardHeight/ rows
         this.spaces = this.makeSpaces() 
-        this.enemySpaces = this.makeSpaces() 
         this.shopPieces = []
         this.playerMoney = 10
         this.prices = [10,15,20,20,30]
@@ -106,13 +105,13 @@ class Board extends Scene{
             i++
         }
 
-            this.incomeButton = new Sprite(shopItemWidth,shopItemHeight, "assets/greySpace.png", this)
+            this.incomeButton = new Sprite(shopItemWidth*2,shopItemHeight, "assets/greySpace.png", this)
             this.incomeButton.setPos({x:this.playerInterface.xPos, y: this.height*6/7})
     
     }
 
 
-    movePieces(){
+    movePieces(spaces){
         //shift pieces up
         //look thru the spaces 2d array for spaces that have pieces, remove those pieces and add them to the space north
         for (let i = 0; i <this.spaces.length; i++){
@@ -184,7 +183,12 @@ class Board extends Scene{
         this.textBaselin = "middle"
         this.context.fillText("HP: "+this.playerHealth + " - $"+this.playerMoney, scoreboard.xPos, scoreboard.yPos)
 
-        this.conest.fillText("Income", this.incomeButton.xPos, this.incomeButton.yPos)
+        this.context.fillText("Income", this.incomeButton.xPos, this.incomeButton.yPos)
+    }
+
+
+    initOpponent(){
+        this.enemySpaces = this.makeSpaces()
     }
 
     getBottomRow(){

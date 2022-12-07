@@ -17,6 +17,7 @@ let selectedPiece = null
 
 board.start()
 board.makeInterface(backgroundImage, nextRoundButtonImage)//can maybe pass in skins later on.
+board.initOpponent()
 
 
 //TEST AREA*******************
@@ -72,7 +73,15 @@ board.canvas.addEventListener("mouseup", function(e){
 board.canvas.addEventListener("click", function(e){
     if (board.nextRoundButton.isClicked(board.mousePos)){
         board.playerMoney += board.playerIncome
-        board.movePieces()
+
+        //MULTIPLAYER
+        board.movePieces(board.spaces)
+    }
+    if (board.incomeButton.isClicked(board.mousePos)){
+        if(board.playerMoney >= 10){
+            board.playerMoney -= 10
+            board.playerIncome += 2
+        }
     }
 })
     
@@ -82,6 +91,17 @@ board.canvas.addEventListener("mousemove", function(e){
     board.mousePos = {x:e.offsetX, y:e.offsetY}
 })
 
+
+
+//board: 2d array of spaces
+function flipSpaces(spacesArray){
+    let flippedSpaces = [[]]
+    for (let i = 0; i<spacesArray.length; i++){
+        for (let j = 0; j<spacesArray[i].length; j++){
+            flippedSpaces[i][j] = spacesArray[(spacesrray.length-1)-i][(spacesArray[i]-1)-j]
+        }
+    }
+}
 
 function updateScene(){
     board.drawBoard()
